@@ -47,6 +47,15 @@ export async function GET(request: NextRequest) {
   const result = await page.evaluate(async () => {
     let links:any = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
     links = links.map((link:any) => link.href);
+
+    const videoBox = document.getElementsByClassName("tt-video-box");
+    const len = videoBox.length;
+    if (len > 0) {
+      for (let i = 0; i < len; i++) {
+        videoBox[i].setAttribute('class', 'tt-video-box xgplayer')
+      }
+    }
+    
     return {
       content: document.getElementsByClassName("article-content")[0].outerHTML,
       css: links,

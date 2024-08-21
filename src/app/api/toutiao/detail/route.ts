@@ -45,8 +45,19 @@ export async function GET(request: NextRequest) {
     { waitUntil: "networkidle2" };
 
   const result = await page.evaluate(async () => {
-    let links:any = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
-    links = links.map((link:any) => link.outerHTML);
+    let links: any = Array.from(
+      document.querySelectorAll('link[rel="stylesheet"]')
+    );
+    links = links.map((link: any) => link.outerHTML);
+
+    const videoBox = document.getElementsByClassName("tt-video-box");
+    const len = videoBox.length;
+    if (len > 0) {
+      for (let i = 0; i < len; i++) {
+        videoBox[i].setAttribute('class', 'tt-video-box xgplayer')
+      }
+    }
+    
     return {
       content: document.getElementsByClassName("article-content")[0].outerHTML,
       css: links,
@@ -65,7 +76,7 @@ export async function GET(request: NextRequest) {
       }
     </style>
     <meta  charset="utf-8" />
-    ${result.css.join('')}
+    ${result.css.join("")}
     </head>
     <body style="width: 100%; min-width: auto">
       <div style="padding: 30px">${result.content}</div>
