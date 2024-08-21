@@ -76,9 +76,4 @@ export async function GET(request: NextRequest) {
       headers: { "Content-Type": "text/html" },
     }
   );
-
-  return Response.json({
-    status: 0,
-    result: result,
-  });
 }

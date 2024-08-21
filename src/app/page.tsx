@@ -25,6 +25,18 @@ export default function Home() {
       response: <div>html</div>,
       test: "/api/toutiao/detail?id=7403926506739417640",
     },
+    {
+      name: "头条文章详情json",
+      path: "/api/toutiao/detailJson",
+      method: "GET",
+      query: (
+        <div>
+          <div>id: 文章id,例如：7403926506739417640</div>
+        </div>
+      ),
+      response: <div>html + css</div>,
+      test: "/api/toutiao/detailJson?id=7403926506739417640",
+    },
   ];
   return (
     <main className="flex min-h-screen flex-col p-24">
