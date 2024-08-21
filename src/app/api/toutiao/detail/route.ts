@@ -54,10 +54,10 @@ export async function GET(request: NextRequest) {
     const len = videoBox.length;
     if (len > 0) {
       for (let i = 0; i < len; i++) {
-        videoBox[i].setAttribute('class', 'tt-video-box xgplayer')
+        videoBox[i].remove();
       }
     }
-    
+
     return {
       content: document.getElementsByClassName("article-content")[0].outerHTML,
       css: links,
