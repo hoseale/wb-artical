@@ -46,39 +46,19 @@ export async function GET(request: NextRequest) {
 
   const result = await page.evaluate(async () => {
     let links:any = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
-    links = links.map((link:any) => link.outerHTML);
+    links = links.map((link:any) => link.href);
     return {
       content: document.getElementsByClassName("article-content")[0].outerHTML,
       css: links,
     };
   }, query);
 
-  // 返回html
-  return new Response(
-    `<html>
-    <head>
-    <style>
-      .pgc-img img {
-        margin: 0 auto;
-        max-width: 100%;
-        display: block;
-      }
-    </style>
-    <meta  charset="utf-8" />
-    ${result.css.join('')}
-    </head>
-    <body style="width: 100%; min-width: auto">
-      <div style="padding: 30px">${result.content}</div>
-    </body>
-    </html>`,
-    {
-      status: 200,
-      headers: { "Content-Type": "text/html" },
-    }
-  );
-
   return Response.json({
     status: 0,
-    result: result,
+    result: {
+      html: `${result.content}`,
+      css: result.css
+    },
   });
+  
 }
