@@ -1,5 +1,5 @@
 import puppeteer, { Browser } from "puppeteer";
-import UserAgent from 'user-agents';
+import UserAgent from "user-agents";
 // const puppeteer = require("puppeteer-extra");
 // const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 
@@ -23,20 +23,20 @@ export async function getNewPage() {
   const str = genUserAgent();
   try {
     const page = await browser.newPage();
-    page.setUserAgent(str);
-    return page
+    await page.setUserAgent(str);
+    return page;
   } catch (error) {
     browser = await getBrowser(true);
     const page = await browser.newPage();
-    page.setUserAgent(str);
-    return page
+    await page.setUserAgent(str);
+    return page;
   }
 }
 
 export function genUserAgent() {
-  const PC = ['Win32' , 'MacIntel'];
+  const PC = ["Win32", "MacIntel"];
   // 随机取一个
   const os = PC[Math.floor(Math.random() * PC.length)];
-  const userAgent = new UserAgent({platform: os});
-  return userAgent.toString()
+  const userAgent = new UserAgent({ platform: os });
+  return userAgent.toString();
 }
