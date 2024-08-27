@@ -62,6 +62,8 @@ export async function GET(request: NextRequest) {
     };
   }, query);
 
+  page.close();
+
   return Response.json({
     status: 0,
     result: {

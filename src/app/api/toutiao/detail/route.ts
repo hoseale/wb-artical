@@ -64,6 +64,8 @@ export async function GET(request: NextRequest) {
     };
   }, query);
 
+  page.close();
+  
   // 返回html
   return new Response(
     `<html>
