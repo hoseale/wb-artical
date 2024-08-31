@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -H 0.0.0.0",
-    "start:pm": "pm2 start npm --name yahoo -- start",
+    "start:pm": "pm2 start npm --name toutiao -- start",
     "lint": "next lint"
   },
   "dependencies": {
