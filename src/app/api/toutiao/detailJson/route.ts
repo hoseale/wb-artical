@@ -45,17 +45,16 @@ export async function GET(request: NextRequest) {
     { waitUntil: "networkidle2" };
 
   const result = await page.evaluate(async () => {
-    let links:any = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
-    links = links.map((link:any) => link.href);
+    let links: any = Array.from(
+      document.querySelectorAll('link[rel="stylesheet"]')
+    );
+    links = links.map((link: any) => link.href);
 
     const videoBox = document.getElementsByClassName("tt-video-box");
-    const len = videoBox.length;
-    if (len > 0) {
-      for (let i = 0; i < len; i++) {
-        videoBox[i].remove()
-      }
+    while (videoBox.length) {
+      videoBox[0].remove();
     }
-    
+
     return {
       content: document.getElementsByClassName("article-content")[0].outerHTML,
       css: links,
@@ -68,8 +67,7 @@ export async function GET(request: NextRequest) {
     status: 0,
     result: {
       html: `${result.content}`,
-      css: result.css
+      css: result.css,
     },
   });
-  
 }

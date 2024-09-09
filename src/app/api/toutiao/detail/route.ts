@@ -51,13 +51,10 @@ export async function GET(request: NextRequest) {
     links = links.map((link: any) => link.outerHTML);
 
     const videoBox = document.getElementsByClassName("tt-video-box");
-    const len = videoBox.length;
-    if (len > 0) {
-      for (let i = 0; i < len; i++) {
-        videoBox[i].remove();
-      }
+    while(videoBox.length) {
+      videoBox[0].remove();
     }
-
+    
     return {
       content: document.getElementsByClassName("article-content")[0].outerHTML,
       css: links,
