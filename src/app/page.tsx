@@ -37,6 +37,20 @@ export default function Home() {
       response: <div>html + css</div>,
       test: "/api/toutiao/detailJson?id=7403926506739417640",
     },
+    {
+      name: "用户文章列表",
+      path: "/api/toutiao/userArtical",
+      method: "GET",
+      query: (
+        <div>
+          <div>userToken: 用户token</div>
+          <div>isToday: 是否是今天文章，true是, (不传时为全部文章，结合max_behot_time用)</div>
+          <div>max_behot_time: 最大时间，不传或者传0为当前时间最新文章 例如：1724137391</div>
+        </div>
+      ),
+      response: <div>传了isToday返回列表，不传返回分页形式。read_count阅读量 comment_count评论量 发布时间publish_time 等</div>,
+      test: "/api/toutiao/userArtical?userToken=MS4wLjABAAAA61L7UigS1t1gDwhOqkAzjO4mkeZaKmL_khO5RDxkAItwuxxgyWTm7L92Lsx5dSwi",
+    },
   ];
   return (
     <main className="flex min-h-screen flex-col p-24">
