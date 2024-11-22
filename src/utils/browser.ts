@@ -9,6 +9,9 @@ export default async function getBrowser(force?: boolean): Promise<Browser> {
     return globalThis.browser;
   } else {
     // puppeteer.use(StealthPlugin());
+    if (globalThis.browser) {
+      await globalThis.browser.close();
+    }
     globalThis.browser = await puppeteer.launch({
       headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
@@ -17,9 +20,22 @@ export default async function getBrowser(force?: boolean): Promise<Browser> {
   }
 }
 
+const MAX_REQUESTS = 400; // 设置最大请求次数
+
 // 获取行新的页面
 export async function getNewPage() {
-  let browser = await getBrowser();
+  // 超过MAX_REQUESTS，重新创建浏览器
+  const reload =
+    !!globalThis.requestCount && globalThis.requestCount > MAX_REQUESTS;
+    
+  if (reload) {
+    globalThis.requestCount = 0;
+  }
+
+  let browser = await getBrowser(reload);
+
+  globalThis.requestCount = (globalThis.requestCount || 0) + 1;
+
   const str = genUserAgent();
   try {
     const page = await browser.newPage();

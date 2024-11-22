@@ -5,6 +5,8 @@ import puppeteer, { type Browser } from "puppeteer";
 declare global {
   namespace globalThis {
     var browser: Browser;
+    // 请求次数
+    var requestCount: number
   }
 
   type ReactFC<T = {}> = React.FC<PropsWithChildren<T>>;
